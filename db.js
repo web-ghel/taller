@@ -5,7 +5,7 @@ const sequelize = new Sequelize('goodreads','root','root',{
 	host: 'localhost',
     dialect: 'mysql',
     define: {
-        timestamps: false 
+        timestamps: false
     }
 });
 
