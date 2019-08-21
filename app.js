@@ -11,7 +11,7 @@ const passportLocalMongoose = require('passport-local-mongoose')
 
 const app = express()
 
-
+app.set('json spaces',4)
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(express.static("public"))
 
@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
   });
 
 
-  
+
 app.use(session({
     secret: "a secret secret",
     resave: false,
@@ -32,19 +32,19 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-mongoose.connect("mongodb://localhost:27017/tallerfinal", {useNewUrlParser: true})
+mongoose.connect("mongodb://localhost:27017/tallerfin", {useNewUrlParser: true})
 
-const bookSchema = { 
-    titulo : String, 
-    autor : String, 
-    isbn: String, 
-    calificacion_promedio: Number, 
+const bookSchema = {
+    titulo : String,
+    autor : String,
+    isbn: String,
+    calificacion_promedio: Number,
 }
 
 const Book = mongoose.model("Book", bookSchema)
 
 const userSchema = new mongoose.Schema({
-    username: String, 
+    username: String,
     password: String
 })
 
@@ -69,14 +69,14 @@ app.get("/api/books", function(req, res){
             res.send( JSON.stringify(foundBooks, null, 4))
         }else{
             console.log(err)
-        }  
+        }
     })
 })
 
 
 app.get("/perfil", function(req,res){
     console.log(req.user)
-   
+
     if(req.isAuthenticated()){
         res.sendFile(__dirname+"/public/vendedor.html")
     }else{
@@ -89,7 +89,7 @@ app.post('/register' , function(req,res){
     User.register({username: req.body.username}, req.body.password, function(err, user){
         if(err){
             console.log(err)
-            
+
         }else{
             passport.authenticate("local")(req ,res, function(){
                 res.send("Usuario Registrado")
@@ -118,12 +118,13 @@ app.post('/login', function(req, res){
 })
 
 
-app.route("/api/books/:autor")
+app.route("/api/books/")
 
-.get(function(req, res){
-    Book.find({autores : req.params.autor}, function(err, foundBooks){
+.post(function(req, res){
+    Book.find({autores : req.body.autor}, function(err, foundBooks){
         if (foundBooks){
-            res.send(foundBooks)
+            //res.send(foundBooks)
+            res.sendFile(__dirname + "/public/busqueda.html")
 
         }else{
             res.send("no restaurant")

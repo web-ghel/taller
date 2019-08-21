@@ -5,7 +5,7 @@ const sequelize = new Sequelize('goodreads','root','root',{
 	host: 'localhost',
     dialect: 'mysql',
     define: {
-        timestamps: false 
+        timestamps: false
     }
 });
 
@@ -67,4 +67,8 @@ Calificacion.init({
 },{ sequelize, freezeTableName: true, modelName: 'calificacion'});
 Calificacion.sync();
 
+<<<<<<< HEAD
 module.exports = {Usuario, Libro, Calificacion, Autor, Autor_Libro};
+=======
+module.exports = {Usuario, Libro, Calificacion};
+>>>>>>> 54386528611f9b8c5fe54969cbd8ef64aa5df53a
