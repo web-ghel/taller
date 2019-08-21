@@ -123,8 +123,8 @@ app.route("/api/books/")
 .post(function(req, res){
     Book.find({autores : req.body.autor}, function(err, foundBooks){
         if (foundBooks){
-            //res.send(foundBooks)
-            res.sendFile(__dirname + "/public/busqueda.html")
+            res.send(foundBooks)
+
 
         }else{
             res.send("no restaurant")

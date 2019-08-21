@@ -10,7 +10,7 @@
     <div id="app">
       <form method="post" action="/api/books/" >
       <input type="search" v-model="autor" placeholder="Autor a buscar" autofocus required>
-      <input type="submit">
+      <input type="submit" @click="loadJson" >
       </form>
     </div>
     <script src="https://unpkg.com/vue"></script>
