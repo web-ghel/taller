@@ -11,7 +11,7 @@ const passportLocalMongoose = require('passport-local-mongoose')
 
 const app = express()
 
-
+app.set('json spaces',4)
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(express.static("public"))
 
@@ -123,7 +123,8 @@ app.route("/api/books/")
 .post(function(req, res){
     Book.find({autores : req.body.autor}, function(err, foundBooks){
         if (foundBooks){
-            res.send(foundBooks)
+            //res.send(foundBooks)
+            res.sendFile(__dirname + "/public/busqueda.html")
 
         }else{
             res.send("no restaurant")
