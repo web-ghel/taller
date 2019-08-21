@@ -116,6 +116,20 @@ app.post('/login', function(req, res){
         }
     })
 })
+
+
+app.route("/api/books/:autor")
+
+.get(function(req, res){
+    Book.find({autores : req.params.autor}, function(err, foundBooks){
+        if (foundBooks){
+            res.send(foundBooks)
+
+        }else{
+            res.send("no restaurant")
+        }
+    })
+})
 /*
 /*app.get('/loginperfil' , function(req,res){
     console.log(req.user)
