@@ -25,15 +25,34 @@ Usuario.init({
 	apellido: Sequelize.STRING,
 	mail: Sequelize.STRING,
 	fecha: Sequelize.STRING
-},{ sequelize, modelName: 'usuario'});
+},{ sequelize, freezeTableName: true, modelName: 'usuario'});
+Usuario.sync();
 
 class Libro extends Model{}
 Libro.init({
 	ISBN: {type: Sequelize.STRING, primaryKey: true},
 	titulo: Sequelize.STRING,
-	autor: Sequelize.STRING,
-	promedio: Sequelize.DECIMAL
-},{ sequelize, modelName: 'libro'});
+	promedio: Sequelize.DECIMAL(10,2)
+},{ sequelize, freezeTableName: true, modelName: 'libro'});
+Libro.sync();
+
+class Autor extends Model{}
+Autor.init({
+	idAutor: {type: Sequelize.STRING, primaryKey: true},
+	nombre: Sequelize.STRING
+},{sequelize, freezeTableName: true, modelName: 'autor'});
+Autor.sync();
+
+class Autor_Libro extends Model{}
+Autor_Libro.init({
+	libro: { type:Sequelize.STRING, references: {
+		model: Libro, key: 'ISBN'
+	}},
+	autor: { type: Sequelize.STRING, references:{
+		model: Autor, key: 'idAutor'
+	}}
+},{sequelize, freezeTableName: true,modelName: 'autor_libro'});
+Autor_Libro.sync();
 
 class Calificacion extends Model{}
 Calificacion.init({
@@ -44,7 +63,8 @@ Calificacion.init({
 	usuario: { type:Sequelize.STRING, references: {
 		model: Usuario, key: 'cedula'
 	}},
-	valor: Sequelize.DECIMAL,
-},{ sequelize, modelName: 'calificacion'});
+	valor: Sequelize.DECIMAL(10,2),
+},{ sequelize, freezeTableName: true, modelName: 'calificacion'});
+Calificacion.sync();
 
-module.exports = {Usuario, Libro, Calificacion};
+module.exports = {Usuario, Libro, Calificacion, Autor, Autor_Libro};
