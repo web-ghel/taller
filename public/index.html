@@ -2,18 +2,24 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
     <title></title>
   </head>
   <body>
     <h1>GoodReads</h1>
     <div id="app">
-      <form method="post" action="/api/books/" >
-      <input type="search" v-model="autor" placeholder="Autor a buscar" autofocus required>
-      <input type="submit" @click="loadJson" >
+      <form >
+        
+        <input type="text" v-model="autor" placeholder="Autor"/>
+        <input type="button" @click="loadJson()" value="submit">
+        
       </form>
     </div>
+
     <script src="https://unpkg.com/vue"></script>
-      <script src="js/calificacion.js"></script>
+  
+    <script src="js/calificacion.js"></script>
   </body>
 </html>

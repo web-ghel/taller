@@ -124,10 +124,9 @@ app.route("/api/books/")
     Book.find({autores : req.body.autor}, function(err, foundBooks){
         if (foundBooks){
             res.send(foundBooks)
-
-
+            console.log(req.body)
         }else{
-            res.send("no restaurant")
+            console.log(err)
         }
     })
 })

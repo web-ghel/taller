@@ -3,10 +3,13 @@ const app = new Vue({
     data: {
         search: "",
         objeto : [],
+        autor :"",
+        postData: 'autor='
     },
     created: function(){
         this.loadJson();
     },
+
     /*computed :{
         filtered: function(){
             return this.objeto.filter((prod)=> {
@@ -17,14 +20,20 @@ const app = new Vue({
 
     },*/
     methods :{
+
         loadJson (){
+
             var app = this
             tmp = []
-            axios.post('http://localhost:3000/api/books',{
-              autor: this.autor
+            axios.post('http://localhost:3000/api/books/',this.postData +app.autor  ,{
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
             })
             .then(function(response){
                 console.log(response.data)
+                
+               
                 var arr = response.data
                 //console.log(arr)
                 /*for (let index = 0; index < arr.length; index++) {
@@ -32,7 +41,7 @@ const app = new Vue({
                 }*/
             })
             .catch(function(error){
-                app.titulo = "error"
+                
             })
         }
 
