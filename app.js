@@ -6,6 +6,7 @@ const session = require('express-session')
 const passport = require('passport')
 const passportLocalMongoose = require('passport-local-mongoose')
 
+var libro = {}
 
 
 
@@ -32,7 +33,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-mongoose.connect("mongodb://localhost:27017/tallerfin", {useNewUrlParser: true})
+mongoose.connect("mongodb://localhost:27017/tallerfinal", {useNewUrlParser: true})
 
 const bookSchema = {
     titulo : String,
@@ -63,15 +64,8 @@ app.get('/', function(req, res){
 
 
 
-app.get("/api/books", function(req, res){
-    Book.find(function(err, foundBooks){
-        if(!err){
-            res.send( JSON.stringify(foundBooks, null, 4))
-        }else{
-            console.log(err)
-        }
-    })
-})
+
+
 
 
 app.get("/perfil", function(req,res){
@@ -117,18 +111,43 @@ app.post('/login', function(req, res){
     })
 })
 
-
-app.route("/api/books/")
+app.get("/api", function(req, res){
+    Book.find({autores: 'Bill Bryson'}, function(err, foundRestaurant){
+        if(!err){
+            console.log("api")
+           console.log(foundRestaurant)
+        }else{
+            console.log(err)
+        }  
+    })
+})
+app.route("/api/autor/")
 
 .post(function(req, res){
-    Book.find({autores : req.body.autor}, function(err, foundBooks){
-        if (foundBooks){
-            res.send(foundBooks)
+    Book.find({autores : req.body.autor}, function(err, foundAuthor){
+        if (foundAuthor){
+            res.send(foundAuthor)
             console.log(req.body)
         }else{
             console.log(err)
         }
     })
+})
+
+
+app.post("/book", function(req, res){
+    Book.findOne(
+        {titulo:req.body.titulo}).then(books =>{
+            console.log(req.body.titulo)
+       libro = books 
+       res.sendFile(__dirname +"/public/resultado.html")
+    })
+})
+
+app.get("/api/result", function(req, res){
+    console.log("get" + libro)
+    res.send(libro)
+    
 })
 /*
 /*app.get('/loginperfil' , function(req,res){

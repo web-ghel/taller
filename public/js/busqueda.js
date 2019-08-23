@@ -3,8 +3,9 @@ const app = new Vue({
     data: {
         search: "",
         objeto : [],
-        autor :"",
-        postData: 'autor='
+        titulo :"",
+        calificacion:"",
+        postData: 'titulo='
     },
     created: function(){
         this.loadJson();
@@ -25,25 +26,22 @@ const app = new Vue({
 
             var app = this
             tmp = []
-            axios.post('http://localhost:3000/api/autor/',this.postData +app.autor  ,{
-                headers:{
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            })
+            axios.get('http://localhost:3000/api/result')
             .then(function(response){
-                console.log(response.data)
                 
-               
                 var arr = response.data
+                console.log(arr.titulo)
                 //console.log(arr)
-                /*for (let index = 0; index < arr.length; index++) {
-                    Vue.set(app.objeto,index,{titulo: arr[index].titulo, autores: arr[index].autores , isbn: arr[index].isbn, calificacion_promedio: arr[index].calificacion_promedio } )
-                }*/
+                
+                    Vue.set(app.objeto,0,{titulo: arr.titulo, autores: arr.autores , isbn: arr.isbn, calificacion_promedio: arr.calificacion_promedio } )
+                
             })
             .catch(function(error){
+                console.log(error)
                 
             })
         }
+        
 
     }
   })
