@@ -92,6 +92,7 @@ app.post('/register' , function(req,res){
     })
 })
 
+// login 
 app.post('/login', function(req, res){
 
     const user = new User({
@@ -110,7 +111,7 @@ app.post('/login', function(req, res){
         }
     })
 })
-
+// prueba para buscar autores 
 app.get("/api", function(req, res){
     Book.find({autores: 'Bill Bryson'}, function(err, foundRestaurant){
         if(!err){
@@ -122,7 +123,7 @@ app.get("/api", function(req, res){
     })
 })
 app.route("/api/autor/")
-
+// se busca todos los registro del autor 
 .post(function(req, res){
     Book.find({autores : req.body.autor}, function(err, foundAuthor){
         if (foundAuthor){
@@ -134,7 +135,7 @@ app.route("/api/autor/")
     })
 })
 
-
+// Se encuentra un libro con el nombre especifico 
 app.post("/book", function(req, res){
     Book.findOne(
         {titulo:req.body.titulo}).then(books =>{
@@ -144,9 +145,18 @@ app.post("/book", function(req, res){
     })
 })
 
+
+//se envia el libro buscado por la ruta /book post 
 app.get("/api/result", function(req, res){
     console.log("get" + libro)
     res.send(libro)
+    
+})
+
+
+//calificacion del libro 
+app.post("/calificacion", function(req, res){
+    console.log(req.body.calificacion)
     
 })
 /*

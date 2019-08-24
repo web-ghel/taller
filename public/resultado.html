@@ -9,13 +9,22 @@
     <h1>Resultado </h1>
 
 <div id="app"> 
+    <div v-if = "encontrado">
      <h1>Libro encontrado </h1>
      <p >Autor: {{objeto[0].autores}} <br> titulo :{{objeto[0].titulo}}  </p>
+     <form action="/calificacion" method="post">
+      <input type="number" placeholder="calificacion" name="calificacion">
+      <input type="submit">
+    </form>
+    </div>
+    <div v-else>
+      <h2>Libro no existe en el registro </h2>
+    </div>
 
 </div>
     
     <script src="https://unpkg.com/vue"></script>
-    <script src="js/busqueda.js"></script>
+    <script src="js/resultado.js"></script>
     
 
   </body>
