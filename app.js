@@ -1,6 +1,6 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-//const {Usuario, Producto,  Tienda, Mensaje_Usuario, Mensaje_Producto} = require('./db')
+const {Usuario, Libro, Calificacion, Autor, Autor_Libro} = require('./db')
 const mongoose = require("mongoose")
 const session = require('express-session')
 const passport = require('passport')
